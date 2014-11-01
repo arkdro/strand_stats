@@ -57,11 +57,21 @@
         res (strand_stats.skew/find-skew-min (clojure.string/upper-case line))]
     res))
 
+(defn hamming-distance [args]
+  (let [opts (getopts (options "is" {:infile :arg
+                                     :skip :arg}) args)
+        [line1 line2] (read-data opts)
+        res (strand_stats.hamming/hamming-distance
+             (clojure.string/upper-case line1)
+             (clojure.string/upper-case line2))]
+    res))
+
 (defn -main [& args]
   (let [opts (getopts (options "is" {:fun :arg}) args)]
     (case (get opts :fun)
       "skew" (skew args)
       "skew-min" (skew-min args)
+      "h-dist" (hamming-distance args)
       )
     ))
 
