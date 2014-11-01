@@ -1,0 +1,14 @@
+# strand_stats
+
+Bioinformatics algorithms.
+Statistics of the forward and reverse half-strands
+
+## Usage
+
+FIXME: write
+
+## License
+
+Copyright (C) 2014 FIXME
+
+Distributed under the Eclipse Public License, the same as Clojure.
