@@ -2,6 +2,7 @@
   {:doc "pattern count"}
   (:use clj-getopts.core)
   (:require strand_stats.skew)
+  (:require clojure.string)
   (:use clojure.tools.trace)
   (:gen-class)
   )
@@ -31,6 +32,11 @@
         ]
     (read-file fname skip)))
 
+(defn prepare-line [start stop line]
+  (let [stop2 (min stop (count line))
+        short-line (subs line start stop2)]
+    (clojure.string/upper-case short-line)))
+
 (defn skew [args]
   (let [opts (getopts (options "is" {:infile :arg
                                      :start :arg
@@ -40,7 +46,8 @@
         len (count line)
         start (Integer/parseInt (get opts :start "0"))
         stop (Integer/parseInt (String/valueOf (get opts :stop len)))
-        res (strand_stats.skew/skew start stop line)]
+        prepared-line (prepare-line start stop line)
+        res (strand_stats.skew/skew prepared-line)]
     res))
 
 (defn -main [& args]
