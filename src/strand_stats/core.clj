@@ -50,10 +50,18 @@
         res (strand_stats.skew/skew prepared-line)]
     res))
 
+(defn skew-min [args]
+  (let [opts (getopts (options "is" {:infile :arg
+                                     :skip :arg}) args)
+        [line] (read-data opts)
+        res (strand_stats.skew/find-skew-min (clojure.string/upper-case line))]
+    res))
+
 (defn -main [& args]
   (let [opts (getopts (options "is" {:fun :arg}) args)]
     (case (get opts :fun)
       "skew" (skew args)
+      "skew-min" (skew-min args)
       )
     ))
 
