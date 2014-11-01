@@ -10,3 +10,10 @@
   (is (= '(0 -1 -1 -1 0 1 2 1 1 1 0 1 2 1 0 0 0 0 -1 0 -1 -2)
          (strand_stats.skew/skew "CATGGGCATCGGCCATACGCC")))
   )
+
+(deftest find-skew-min-test
+  (is (= [2 5] (strand_stats.skew/find-skew-min "ACGAC")))
+  (is (= [11 24] (strand_stats.skew/find-skew-min
+                  "TAAAGACTGCCGAGAGGCCAACACGAGTGCTAGAACGAGGGGCGTAAACGCGGGTCCGAT")))
+  )
+
