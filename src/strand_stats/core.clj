@@ -2,6 +2,7 @@
   {:doc "pattern count"}
   (:use clj-getopts.core)
   (:require strand_stats.skew)
+  (:require strand_stats.hamming)
   (:require clojure.string)
   (:use clojure.tools.trace)
   (:gen-class)
