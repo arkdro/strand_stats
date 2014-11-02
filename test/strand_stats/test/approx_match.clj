@@ -150,3 +150,8 @@
     )
   )
 
+(deftest approx-matched-test
+  (is (= false (strand_stats.approx_match/approx-matched "ASDF" #{"ZXCV"})))
+  (is (= true (strand_stats.approx_match/approx-matched "ASDF" #{"ASDF"})))
+  )
+
