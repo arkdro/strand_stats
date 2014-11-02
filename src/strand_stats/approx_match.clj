@@ -57,8 +57,8 @@
     (iter-over-text-aux idx k acc pattern approx-patterns len text)))
 
 (defn find-approx-match [d pattern text]
-  (let [approx-patterns (build-approx-patterns d pattern)
-        ]
-    )
-  )
+  (let [approx-patterns0 (build-approx-patterns d pattern)
+        approx-patterns (conj approx-patterns0 pattern)
+        res (iter-over-text pattern approx-patterns text)]
+    res))
 
