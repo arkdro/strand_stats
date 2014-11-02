@@ -49,6 +49,12 @@
            base-pattern patterns len text)
     acc))
 
+(defn iter-over-text [pattern approx-patterns text]
+  (let [idx 0
+        k (count pattern)
+        acc {}
+        len (count text)]
+    (iter-over-text-aux idx k acc pattern approx-patterns len text)))
 
 (defn find-approx-match [d pattern text]
   (let [approx-patterns (build-approx-patterns d pattern)
