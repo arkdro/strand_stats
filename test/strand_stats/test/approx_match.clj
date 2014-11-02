@@ -62,3 +62,91 @@
          (strand_stats.approx_match/calc-combinations 2 "CGA")))
   )
 
+(deftest build-approx-patterns-test
+  (let [
+        exp-list [
+                  ;; 0
+                  "AGA"
+                  "CGA"
+                  "GGA"
+                  "TGA"
+                  ;; 1
+                  "CAA"
+                  "CCA"
+                  "CGA"
+                  "CTA"
+                  ;; 2
+                  "CGA"
+                  "CGC"
+                  "CGG"
+                  "CGT"
+
+                  ;; 0 1
+                  "AAA"
+                  "ACA"
+                  "AGA"
+                  "ATA"
+                  ;; 0 1
+                  "CAA"
+                  "CCA"
+                  "CGA"
+                  "CTA"
+                  ;; 0 1
+                  "GAA"
+                  "GCA"
+                  "GGA"
+                  "GTA"
+                  ;; 0 1
+                  "TAA"
+                  "TCA"
+                  "TGA"
+                  "TTA"
+                  ;; 0 2
+                  "AGA"
+                  "AGC"
+                  "AGG"
+                  "AGT"
+                  ;; 0 2
+                  "CGA"
+                  "CGC"
+                  "CGG"
+                  "CGT"
+                  ;; 0 2
+                  "GGA"
+                  "GGC"
+                  "GGG"
+                  "GGT"
+                  ;; 0 2
+                  "TGA"
+                  "TGC"
+                  "TGG"
+                  "TGT"
+
+                  ;; 1 2
+                  "CAA"
+                  "CAC"
+                  "CAG"
+                  "CAT"
+                  ;; 1 2
+                  "CCA"
+                  "CCC"
+                  "CCG"
+                  "CCT"
+                  ;; 1 2
+                  "CGA"
+                  "CGC"
+                  "CGG"
+                  "CGT"
+                  ;; 1 2
+                  "CTA"
+                  "CTC"
+                  "CTG"
+                  "CTT"
+                  ]
+        exp (into #{} exp-list)
+        ]
+    (is (= exp
+           (strand_stats.approx_match/build-approx-patterns 2 "CGA")))
+    )
+  )
+
