@@ -172,3 +172,9 @@
           #{"ASF" "ASD"} "AAFF")))
   )
 
+(deftest iter-over-text-test
+  (is (= {"ABS" 2, "BDF" 1}
+         (strand_stats.approx_match/iter-over-text
+          "ABS" #{"ABS" "ABD" "DFA"} "ABDFA")))
+  )
+
