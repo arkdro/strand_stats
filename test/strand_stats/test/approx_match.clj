@@ -155,3 +155,20 @@
   (is (= true (strand_stats.approx_match/approx-matched "ASDF" #{"ASDF"})))
   )
 
+(deftest add-one-pattern-test
+  (is (= {"ASD" 1}
+         (strand_stats.approx_match/add-one-pattern 0 3 {} "ASD" #{} "ASD")))
+  (is (= {"ABS" 1}
+         (strand_stats.approx_match/add-one-pattern
+          0 3 {} "ABS"
+          #{"ASF" "ASD"} "ASDF")))
+  (is (= {"ABS" 3}
+         (strand_stats.approx_match/add-one-pattern
+          0 3 {"ABS" 2} "ABS"
+          #{"ASF" "ASD"} "ASDF")))
+  (is (= {"ABS" 2, "AAF" 1}
+         (strand_stats.approx_match/add-one-pattern
+          0 3 {"ABS" 2} "ABS"
+          #{"ASF" "ASD"} "AAFF")))
+  )
+
