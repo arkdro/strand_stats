@@ -16,6 +16,13 @@
   (let [complemented (map #(fill-one-position % pattern) positions)]
     (flatten complemented)))
 
+(defn calc-combinations [d pattern]
+  (let [len (count pattern)
+        allowed-mismatches (range 1 (inc d))
+        combs (mapcat #(combo/combinations (range len) %)
+                      allowed-mismatches)]
+    combs))
+
 (defn build-approx-patterns [d pattern]
   (let [pattern-seq (vec pattern)
         len (count pattern)
