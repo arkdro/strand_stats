@@ -6,30 +6,53 @@
 ;; (trace-ns 'strand_stats.approx_match)
 
 (deftest replace-one-char-test
-  (is (= "AGGAC"
+  (is (= (vec "AGGAC")
          (strand_stats.approx_match/replace-one-char (vec "CGGAC") 0 \A)))
-  (is (= "CGGAA"
+  (is (= (vec "CGGAA")
          (strand_stats.approx_match/replace-one-char (vec "CGGAC") 4 \A)))
   )
 
 (deftest fill-one-position-test
-  (is (= '("CAGAC"
-           "CCGAC"
-           "CGGAC"
-           "CTGAC")
+  (is (= [(vec "CAGAC")
+          (vec "CCGAC")
+          (vec "CGGAC")
+          (vec "CTGAC")]
          (strand_stats.approx_match/fill-one-position 1 (vec "CGGAC"))))
-  (is (= '("CGGAA"
-           "CGGAC"
-           "CGGAG"
-           "CGGAT")
+  (is (= [(vec "CGGAA")
+          (vec "CGGAC")
+          (vec "CGGAG")
+          (vec "CGGAT")]
          (strand_stats.approx_match/fill-one-position 4 (vec "CGGAC"))))
   )
 
 (deftest build-one-approx-pattern-test
-  (is (= ["CAGAC" "CCGAC" "CGGAC" "CTGAC"
-          "CGGAA" "CGGAC" "CGGAG" "CGGAT"]
+  (is (= ["CAGAC" "CCGAC" "CGGAC" "CTGAC"]
          (strand_stats.approx_match/build-one-approx-pattern
-          [1 4] (vec "CGGAC"))))
+          [1] (vec "CGGAC"))))
+  (is (= [
+          ;; 0 1
+          "AAA"
+          "ACA"
+          "AGA"
+          "ATA"
+          ;; 0 1
+          "CAA"
+          "CCA"
+          "CGA"
+          "CTA"
+          ;; 0 1
+          "GAA"
+          "GCA"
+          "GGA"
+          "GTA"
+          ;; 0 1
+          "TAA"
+          "TCA"
+          "TGA"
+          "TTA"
+          ]
+         (strand_stats.approx_match/build-one-approx-pattern
+          [0 1] (vec "CGA"))))
   )
 
 (deftest calc-combinations-test
