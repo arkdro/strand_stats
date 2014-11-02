@@ -36,6 +36,12 @@
 (defn approx-matched [pattern patterns]
   (contains? patterns pattern))
 
+(defn add-one-pattern [idx k acc base-pattern patterns text]
+  (let [current-k-mer (bia_utils.util/get-one-k-mer idx text k)]
+    (if (approx-matched current-k-mer patterns)
+      (bia_utils.util/add-provided-k-mer base-pattern acc)
+      (bia_utils.util/add-provided-k-mer current-k-mer acc))))
+
 
 (defn find-approx-match [d pattern text]
   (let [approx-patterns (build-approx-patterns d pattern)
