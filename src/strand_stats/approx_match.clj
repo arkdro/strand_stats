@@ -33,6 +33,9 @@
         patterns (mapcat #(build-one-approx-pattern % pattern-seq) combs)]
     (into #{} patterns)))
 
+(defn approx-matched [pattern patterns]
+  (contains? patterns pattern))
+
 
 (defn find-approx-match [d pattern text]
   (let [approx-patterns (build-approx-patterns d pattern)
