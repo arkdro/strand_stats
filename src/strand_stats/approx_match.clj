@@ -42,6 +42,13 @@
       (bia_utils.util/add-provided-k-mer base-pattern acc)
       (bia_utils.util/add-provided-k-mer current-k-mer acc))))
 
+(defn iter-over-text-aux [idx k acc base-pattern patterns len text]
+  (if (bia_utils.util/is-data-available idx len k)
+    (recur (inc idx) k
+           (add-one-pattern idx k acc base-pattern patterns text)
+           base-pattern patterns len text)
+    acc))
+
 
 (defn find-approx-match [d pattern text]
   (let [approx-patterns (build-approx-patterns d pattern)
