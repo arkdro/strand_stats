@@ -7,14 +7,18 @@
 
 (defn replace-one-char [pattern pos char]
   (let [res-seq (assoc pattern pos char)]
-    (apply str res-seq)))
+    res-seq
+    ))
 
 (defn fill-one-position [pos pattern]
   (map #(replace-one-char pattern pos %) ALPHABET))
 
-(defn build-one-approx-pattern [positions pattern]
-  (let [complemented (map #(fill-one-position % pattern) positions)]
-    (flatten complemented)))
+(defn build-one-approx-pattern [[head & tail] pattern]
+  (if (nil? head) (apply str pattern)
+      (let [head-updated (fill-one-position head pattern)
+            res (map #(build-one-approx-pattern tail %)
+                     head-updated)]
+        (flatten res))))
 
 (defn calc-combinations [d pattern]
   (let [len (count pattern)
