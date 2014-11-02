@@ -28,10 +28,9 @@
     combs))
 
 (defn build-approx-patterns [d pattern]
-  (let [pattern-seq (vec pattern)
-        len (count pattern)
-        combs (combo/combinations (range len) d)
-        patterns (map #(build-one-approx-pattern % pattern-seq) combs)]
+  (let [pattern-seq (vec pattern) ;; convert to vector once, at the beginning
+        combs (calc-combinations d pattern)
+        patterns (mapcat #(build-one-approx-pattern % pattern-seq) combs)]
     (into #{} patterns)))
 
 
