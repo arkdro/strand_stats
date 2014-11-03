@@ -219,3 +219,14 @@
           3 1 "CGATGA")))
   )
 
+(deftest most-freq-approx-match-test
+  (is (= ["CGA" "TGA"]
+         (sort
+          (strand_stats.approx_match/most-freq-approx-match
+           3 1 "CGATGA"))))
+  (is (= ["ATGC" "ATGT" "GATG"]
+         (sort
+          (strand_stats.approx_match/most-freq-approx-match
+           4 1 "ACGTTGCATGTCGCATGATGCATGAGAGCT"))))
+  )
+
