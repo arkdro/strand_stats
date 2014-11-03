@@ -71,3 +71,7 @@
         res (iter-over-text pattern approx-patterns text)]
     res))
 
+(defn count-approx-match [d pattern text]
+  (let [lst (find-approx-match d pattern text)]
+    (count lst)))
+

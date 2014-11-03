@@ -80,6 +80,18 @@
              (clojure.string/upper-case text))]
     res))
 
+(defn approx-match-count [args]
+  (let [opts (getopts (options "is" {:infile :arg
+                                     :d :arg
+                                     :skip :arg}) args)
+        d (Integer/parseInt (get opts :d "0"))
+        [pattern text] (read-data opts)
+        res (strand_stats.approx_match/count-approx-match
+             d
+             (clojure.string/upper-case pattern)
+             (clojure.string/upper-case text))]
+    res))
+
 (defn -main [& args]
   (let [opts (getopts (options "is" {:fun :arg}) args)]
     (case (get opts :fun)
@@ -87,6 +99,7 @@
       "skew-min" (skew-min args)
       "h-dist" (hamming-distance args)
       "approx-match" (approx-match args)
+      "approx-match-count" (approx-match-count args)
       )
     ))
 
