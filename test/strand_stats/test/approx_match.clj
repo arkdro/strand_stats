@@ -273,3 +273,14 @@
           3 1 "CGAGATGA")))
   )
 
+(deftest most-freq-approx-match2-test
+  (is (= ["ATGC" "ATGT" "GATG"]
+         (sort
+          (strand_stats.approx_match/most-freq-approx-match2
+           4 1 "ACGTTGCATGTCGCATGATGCATGAGAGCT"))))
+  (is (= ["AAAAA"]
+         (sort
+          (strand_stats.approx_match/most-freq-approx-match2
+           5 1 "AACAAGCTGATAAACATTTAAAGAG"))))
+  )
+
