@@ -199,3 +199,14 @@
           (strand_stats.approx_match/find-all-k-mers 3 "AGCTATC"))))
   )
 
+(deftest build-all-approx-patterns-test
+  (let [exp {"CGA" #{"AGA" "CAA" "CCA" "CGA" "CGC"
+                     "CGG" "CGT" "CTA" "GGA" "TGA"}
+             "TAT" #{"AAT" "CAT" "GAT" "TAA" "TAC"
+                     "TAG" "TAT" "TCT" "TGT" "TTT"}}]
+    (is (= exp
+           (strand_stats.approx_match/build-all-approx-patterns
+            1 ["CGA" "TAT"])))
+    )
+  )
+
