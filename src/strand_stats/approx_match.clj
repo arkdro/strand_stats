@@ -149,6 +149,12 @@
                                          all-approx-patterns {})]
     res))
 
+(defn most-freq-approx-match2 [k d text]
+  (let [freqs (find-freq-approx-match2 k d text)
+        max-items (bia_utils.util/find-max-items (into [] freqs))
+        k-mers (map first max-items)]
+    (sort k-mers)))
+
 (defn most-freq-approx-match [k d text]
   (let [freqs (find-freq-approx-match k d text)
         max-items (bia_utils.util/find-max-items (into [] freqs))
