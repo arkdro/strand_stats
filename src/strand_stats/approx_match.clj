@@ -82,3 +82,19 @@
         k-mer (subs text idx end)]
     (conj acc k-mer)))
 
+(defn find-all-k-mers-aux
+  "Slide the window over the text, extract k-mers,
+   store them into the accumulator"
+  [idx acc k len text]
+  (if (bia_utils.util/is-data-available idx len k)
+    (recur (inc idx)
+           (add-one-k-mer-by-index idx k text acc)
+           k len text)
+    acc))
+
+(defn find-all-k-mers
+  "Find all k-mers of length k in the text"
+  [k text]
+  (let [k-mers (find-all-k-mers-aux 0 #{} k (count text) text)]
+    (into [] k-mers)))
+
