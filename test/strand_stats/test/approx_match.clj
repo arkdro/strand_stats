@@ -248,3 +248,28 @@
            {"ACA" 1, "ACC" 1, "ACG" 1, "ACT" 1})))
   )
 
+(deftest find-freq-approx-match2-test
+  (is (= {"GGA" 1, "CCA" 1, "CGG" 1, "CAA" 1, "TGA" 1,
+          "CGT" 1, "CTA" 1, "AGA" 1, "CGA" 1, "CGC" 1}
+         (strand_stats.approx_match/find-freq-approx-match2
+          3 1 "CGA")))
+  (is (= {"TGT" 1, "AGG" 1, "TTA" 1, "ATT" 1, "GGA" 2, "CCA" 1, "CGG" 1,
+          "CAA" 1, "ACG" 1, "AAG" 1, "GTT" 1, "TTG" 1, "GAA" 1, "TAT" 1,
+          "GAC" 1, "GAG" 1, "TGA" 2, "ATA" 1, "TGC" 1, "CGT" 1, "CTA" 1,
+          "ATC" 1, "TCA" 1, "TGG" 1, "AAT" 1, "ATG" 1, "GGT" 1, "TAA" 1,
+          "CTG" 1, "CAT" 1, "GCT" 1, "GTG" 1, "GAT" 1, "AGA" 2, "CGA" 2,
+          "CGC" 1}
+         (strand_stats.approx_match/find-freq-approx-match2
+          3 1 "CGATGA")))
+  (is (= {"AAA" 1, "TGT" 1, "AGG" 2, "TTA" 1, "ATT" 1, "GGA" 3,
+          "CCA" 1, "CGG" 1, "CAA" 1, "ACG" 1, "AAG" 2, "GTT" 1,
+          "TTG" 1, "GAA" 2, "GGG" 1, "TAT" 1, "GAC" 2, "CAG" 1,
+          "GCG" 1, "GAG" 2, "TGA" 3, "AGT" 1, "ATA" 2, "TGC" 1,
+          "CGT" 1, "CTA" 1, "ATC" 1, "TCA" 1, "TGG" 1, "AAT" 1,
+          "ATG" 1, "GGT" 1, "TAA" 1, "CTG" 1, "CAT" 1, "GCT" 1,
+          "GTG" 2, "GAT" 2, "TAG" 1, "AGA" 3, "CGA" 3, "AGC" 1,
+          "CGC" 1, "ACA" 1}
+         (strand_stats.approx_match/find-freq-approx-match2
+          3 1 "CGAGATGA")))
+  )
+
