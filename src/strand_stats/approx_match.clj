@@ -109,3 +109,20 @@
   [d k-mers]
   (build-all-approx-patterns-aux d k-mers {}))
 
+(defn find-freq-approx-match-aux [k d text [k-mer & k-mers-tail]
+                                  all-approx-patterns acc]
+  (if (nil? k-mer) acc
+      (let [approx-patterns (get all-approx-patterns k-mer)
+            positions (iter-over-text k-mer approx-patterns text)
+            n (count positions)
+            new-acc (assoc acc k-mer n)]
+        (recur k d text k-mers-tail all-approx-patterns new-acc))))
+
+(defn find-freq-approx-match
+  "Find the frequencies of k-mers with mismatches in a string"
+  [k d text]
+  (let [k-mers (find-all-k-mers k text)
+        all-approx-patterns (build-all-approx-patterns d k-mers)
+        res (find-freq-approx-match-aux k d text k-mers all-approx-patterns {})]
+    res))
+
