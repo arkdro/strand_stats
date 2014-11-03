@@ -173,13 +173,13 @@
   )
 
 (deftest iter-over-text-test
-  (is (= {"ABS" 2, "BDF" 1}
+  (is (= [0 2]
          (strand_stats.approx_match/iter-over-text
           "ABS" #{"ABS" "ABD" "DFA"} "ABDFA")))
   )
 
 (deftest find-approx-match-test
-  (is (= {"ATC" 2, "GCT" 1, "CTA" 1, "TAT" 1}
+  (is (= [0 4]
          (strand_stats.approx_match/find-approx-match
           1 "ATC" "AGCTATC")))
   )
