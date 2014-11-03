@@ -184,3 +184,12 @@
           1 "ATC" "AGCTATC")))
   )
 
+(deftest add-one-pattern-pos-test
+  (is (= [0]
+         (strand_stats.approx_match/add-one-pattern-pos
+          0 3 [] #{"ATC" "AGC" "ACC" "AAC"} "AGCTATC")))
+  (is (= [0 4]
+         (strand_stats.approx_match/add-one-pattern-pos
+          4 3 [0] #{"ATC" "AGC" "ACC" "AAC"} "AGCTATC")))
+  )
+
