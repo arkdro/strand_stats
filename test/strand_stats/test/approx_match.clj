@@ -210,3 +210,12 @@
     )
   )
 
+(deftest find-freq-approx-match-test
+  (is (= {"CGA" 1}
+         (strand_stats.approx_match/find-freq-approx-match
+          3 1 "CGA")))
+  (is (= {"CGA" 2, "GAT" 1, "ATG" 1, "TGA" 2}
+         (strand_stats.approx_match/find-freq-approx-match
+          3 1 "CGATGA")))
+  )
+
