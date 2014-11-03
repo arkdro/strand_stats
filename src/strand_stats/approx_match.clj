@@ -42,17 +42,26 @@
       (bia_utils.util/add-provided-k-mer base-pattern acc)
       (bia_utils.util/add-provided-k-mer current-k-mer acc))))
 
+(defn add-pos [idx acc]
+  (conj acc idx))
+
+(defn add-one-pattern-pos [idx k acc patterns text]
+  (let [current-k-mer (bia_utils.util/get-one-k-mer idx text k)]
+    (if (approx-matched current-k-mer patterns)
+      (add-pos idx acc)
+      acc)))
+
 (defn iter-over-text-aux [idx k acc base-pattern patterns len text]
   (if (bia_utils.util/is-data-available idx len k)
     (recur (inc idx) k
-           (add-one-pattern idx k acc base-pattern patterns text)
+           (add-one-pattern-pos idx k acc patterns text)
            base-pattern patterns len text)
     acc))
 
 (defn iter-over-text [pattern approx-patterns text]
   (let [idx 0
         k (count pattern)
-        acc {}
+        acc []
         len (count text)]
     (iter-over-text-aux idx k acc pattern approx-patterns len text)))
 
