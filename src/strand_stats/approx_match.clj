@@ -133,6 +133,22 @@
                         neighbours)]
     new-acc))
 
+(defn find-freq-approx-match2-aux [idx len k d text approx-patterns acc]
+  (if (bia_utils.util/is-data-available idx len k)
+    (let [current-k-mer (bia_utils.util/get-one-k-mer idx text k)
+          new-acc (increase-every-neighbour current-k-mer approx-patterns acc)]
+      (recur (inc idx) len k d text approx-patterns new-acc))
+    acc))
+
+(defn find-freq-approx-match2
+  "Find the frequencies of k-mers with mismatches in a string. Ver. 2"
+  [k d text]
+  (let [k-mers (find-all-k-mers k text)
+        all-approx-patterns (build-all-approx-patterns d k-mers)
+        res (find-freq-approx-match2-aux 0 (count text) k d text
+                                         all-approx-patterns {})]
+    res))
+
 (defn most-freq-approx-match [k d text]
   (let [freqs (find-freq-approx-match k d text)
         max-items (bia_utils.util/find-max-items (into [] freqs))
