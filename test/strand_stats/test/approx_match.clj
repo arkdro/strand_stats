@@ -230,3 +230,21 @@
            4 1 "ACGTTGCATGTCGCATGATGCATGAGAGCT"))))
   )
 
+(deftest increase-every-neighbour-test
+  (is (= {}
+          (strand_stats.approx_match/increase-every-neighbour
+           "ACG"
+           {"ACA" #{"ACA" "ACC" "ACG" "ACT"}}
+           {})))
+  (is (= {"ACA" 1, "ACC" 1, "ACG" 1, "ACT" 1}
+          (strand_stats.approx_match/increase-every-neighbour
+           "ACA"
+           {"ACA" #{"ACA" "ACC" "ACG" "ACT"}}
+           {})))
+  (is (= {"ACA" 2, "ACC" 1, "ACG" 1, "ACT" 1, "CCA" 1, "GCA" 1, "TCA" 1}
+          (strand_stats.approx_match/increase-every-neighbour
+           "TCA"
+           {"TCA" #{"ACA" "CCA" "GCA" "TCA"}}
+           {"ACA" 1, "ACC" 1, "ACG" 1, "ACT" 1})))
+  )
+
