@@ -75,3 +75,10 @@
   (let [lst (find-approx-match d pattern text)]
     (count lst)))
 
+(defn add-one-k-mer-by-index
+  "Extract k-mer from text, store k-mer into accumulator"
+  [idx k text acc]
+  (let [end (+ idx k)
+        k-mer (subs text idx end)]
+    (conj acc k-mer)))
+
