@@ -101,7 +101,7 @@
         len (count text)
         k (Integer/parseInt (String/valueOf (get opts :k len)))
         d (Integer/parseInt (get opts :d "0"))
-        res (strand_stats.approx_match/find-freq-approx-match
+        res (strand_stats.approx_match/find-freq-approx-match2
              k d (clojure.string/upper-case text))]
     res))
 
@@ -114,7 +114,7 @@
         len (count text)
         k (Integer/parseInt (String/valueOf (get opts :k len)))
         d (Integer/parseInt (get opts :d "0"))
-        res (strand_stats.approx_match/most-freq-approx-match
+        res (strand_stats.approx_match/most-freq-approx-match2
              k d (clojure.string/upper-case text))]
     res))
 
