@@ -98,3 +98,14 @@
   (let [k-mers (find-all-k-mers-aux 0 #{} k (count text) text)]
     (into [] k-mers)))
 
+(defn build-all-approx-patterns-aux [d [head & tail] acc]
+  (if (nil? head) acc
+      (let [patterns (build-approx-patterns d head)
+            new-acc (assoc acc head patterns)]
+        (recur d tail new-acc))))
+
+(defn build-all-approx-patterns
+  "Build approximate patterns for every k-mer from the list"
+  [d k-mers]
+  (build-all-approx-patterns-aux d k-mers {}))
+
