@@ -193,3 +193,9 @@
           4 3 [0] #{"ATC" "AGC" "ACC" "AAC"} "AGCTATC")))
   )
 
+(deftest find-all-k-mers-test
+  (is (= ["AGC" "ATC" "CTA" "GCT" "TAT"]
+         (sort
+          (strand_stats.approx_match/find-all-k-mers 3 "AGCTATC"))))
+  )
+
