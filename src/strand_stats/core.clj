@@ -105,6 +105,19 @@
              k d (clojure.string/upper-case text))]
     res))
 
+(defn most-freq-approx-match [args]
+  (let [opts (getopts (options "is" {:infile :arg
+                                     :d :arg
+                                     :k :arg
+                                     :skip :arg}) args)
+        [text] (read-data opts)
+        len (count text)
+        k (Integer/parseInt (String/valueOf (get opts :k len)))
+        d (Integer/parseInt (get opts :d "0"))
+        res (strand_stats.approx_match/most-freq-approx-match
+             k d (clojure.string/upper-case text))]
+    res))
+
 (defn -main [& args]
   (let [opts (getopts (options "is" {:fun :arg}) args)]
     (case (get opts :fun)
@@ -114,6 +127,7 @@
       "approx-match" (approx-match args)
       "approx-match-count" (approx-match-count args)
       "freq-approx-match" (freq-approx-match args)
+      "most-freq-approx-match" (most-freq-approx-match args)
       )
     ))
 
