@@ -216,3 +216,12 @@
         ]
     res)
   )
+
+(defn most-freq-match-revc
+  "Find the frequencies of k-mers with mismatches and reverse complements"
+  [k d text]
+  (let [freqs (find-freq-match-revc k d text)
+        max-items (bia_utils.util/find-max-items (into [] freqs))
+        k-mers (map first max-items)]
+    (sort k-mers)))
+
