@@ -172,6 +172,17 @@
          revc-acc (iterate-over-neighbours revc-neighbours fw-acc)]
     revc-acc))
 
+(defn find-freq-approx-match-two-way-aux
+  "Given the text, the (forward and reverse-complement) patterns, iterate
+   over the text and increase counter for every occurence of a k-mer and
+   its reverse complement in the text"
+  [idx len k d text patterns acc]
+  (if (bia_utils.util/is-data-available idx len k)
+    (let [current-k-mer (bia_utils.util/get-one-k-mer idx text k)
+          new-acc (increase-every-neighbour-two-way current-k-mer patterns acc)]
+      (recur (inc idx) len k d text patterns new-acc))
+    acc))
+
 (defn find-freq-approx-match2
   "Find the frequencies of k-mers with mismatches in a string. Ver. 2"
   [k d text]
@@ -200,8 +211,8 @@
         ;; revc-text (bia_utils.reverse_complement/rev-complement text)
         k-mers (find-all-k-mers k text)
         all-patterns (build-all-patterns-two-way d k-mers)
-        res (find-freq-approx-match2-aux 0 (count text) k d text
-                                         all-patterns {})
+        res (find-freq-approx-match-two-way-aux 0 (count text) k d text
+                                                all-patterns {})
         ]
     res)
   )
