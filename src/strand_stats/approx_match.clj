@@ -41,7 +41,8 @@
   (let [forward-patterns (build-approx-patterns d pattern)
         revc-patterns (build-approx-patterns
                        d (bia_utils.reverse_complement/rev-complement pattern))]
-    (clojure.set/union forward-patterns revc-patterns)))
+    {:fw forward-patterns,
+     :revc revc-patterns}))
 
 (defn approx-matched [pattern patterns]
   (contains? patterns pattern))
