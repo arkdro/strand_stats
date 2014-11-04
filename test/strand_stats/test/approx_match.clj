@@ -468,3 +468,20 @@
           )))
   )
 
+(deftest increase-every-neighbour-two-way-test
+  (is (= {"ACA" 1}
+         (strand_stats.approx_match/increase-every-neighbour-two-way
+          "CGA"
+          {"TGA" {:fw #{"ACA" "CCA" "GCA" "TCA"}
+                  :revc #{"TGT" "GGT" "CGT" "AGT"}}}
+          {"ACA" 1}
+          )))
+  (is (= {"ACA" 2, "TGT" 1}
+         (strand_stats.approx_match/increase-every-neighbour-two-way
+          "CGA"
+          {"CGA" {:fw #{"ACA"}
+                  :revc #{"TGT"}}}
+          {"ACA" 1}
+          )))
+  )
+
