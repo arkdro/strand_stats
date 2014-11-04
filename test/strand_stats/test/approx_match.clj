@@ -455,3 +455,16 @@
     )
   )
 
+(deftest iterate-over-neighbours-test
+  (is (= {"ACA" 1 "ACC" 1 "ACG" 1 "ACT" 1}
+         (strand_stats.approx_match/iterate-over-neighbours
+          #{"ACA" "ACC" "ACG" "ACT"}
+          {}
+          )))
+  (is (= {"ACA" 2, "ACC" 1, "ACG" 1, "ACT" 1, "CCA" 1, "GCA" 1, "TCA" 1}
+         (strand_stats.approx_match/iterate-over-neighbours
+          #{"ACA" "CCA" "GCA" "TCA"}
+          {"ACA" 1, "ACC" 1, "ACG" 1, "ACT" 1}
+          )))
+  )
+
