@@ -183,3 +183,15 @@
         k-mers (map first max-items)]
     (sort k-mers)))
 
+(defn find-freq-match-revc
+  "Find the frequencies of k-mers with mismatches and reverse complements"
+  [k d text]
+  (let [
+        ;; revc-text (bia_utils.reverse_complement/rev-complement text)
+        k-mers (find-all-k-mers k text)
+        all-patterns (build-all-patterns-two-way d k-mers)
+        res (find-freq-approx-match2-aux 0 (count text) k d text
+                                         all-patterns {})
+        ]
+    res)
+  )
