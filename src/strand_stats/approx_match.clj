@@ -165,6 +165,13 @@
       (recur (inc idx) len k d text approx-patterns new-acc))
     acc))
 
+(defn increase-every-neighbour-two-way [k-mer patterns acc]
+  (let [{forward-neighbours :fw
+         revc-neighbours :revc} (get patterns k-mer)
+         fw-acc (iterate-over-neighbours forward-neighbours acc)
+         revc-acc (iterate-over-neighbours revc-neighbours fw-acc)]
+    revc-acc))
+
 (defn find-freq-approx-match2
   "Find the frequencies of k-mers with mismatches in a string. Ver. 2"
   [k d text]
