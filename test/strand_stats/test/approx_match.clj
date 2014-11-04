@@ -284,3 +284,174 @@
            5 1 "AACAAGCTGATAAACATTTAAAGAG"))))
   )
 
+(deftest build-approx-patterns-two-way-test
+  (let [
+        exp-list [
+                  ;; forward
+                  ;; 0
+                  "AGA"
+                  "CGA"
+                  "GGA"
+                  "TGA"
+                  ;; 1
+                  "CAA"
+                  "CCA"
+                  "CGA"
+                  "CTA"
+                  ;; 2
+                  "CGA"
+                  "CGC"
+                  "CGG"
+                  "CGT"
+
+                  ;; 0 1
+                  "AAA"
+                  "ACA"
+                  "AGA"
+                  "ATA"
+                  ;; 0 1
+                  "CAA"
+                  "CCA"
+                  "CGA"
+                  "CTA"
+                  ;; 0 1
+                  "GAA"
+                  "GCA"
+                  "GGA"
+                  "GTA"
+                  ;; 0 1
+                  "TAA"
+                  "TCA"
+                  "TGA"
+                  "TTA"
+                  ;; 0 2
+                  "AGA"
+                  "AGC"
+                  "AGG"
+                  "AGT"
+                  ;; 0 2
+                  "CGA"
+                  "CGC"
+                  "CGG"
+                  "CGT"
+                  ;; 0 2
+                  "GGA"
+                  "GGC"
+                  "GGG"
+                  "GGT"
+                  ;; 0 2
+                  "TGA"
+                  "TGC"
+                  "TGG"
+                  "TGT"
+
+                  ;; 1 2
+                  "CAA"
+                  "CAC"
+                  "CAG"
+                  "CAT"
+                  ;; 1 2
+                  "CCA"
+                  "CCC"
+                  "CCG"
+                  "CCT"
+                  ;; 1 2
+                  "CGA"
+                  "CGC"
+                  "CGG"
+                  "CGT"
+                  ;; 1 2
+                  "CTA"
+                  "CTC"
+                  "CTG"
+                  "CTT"
+                  ;; reverse complement ("TCG")
+                  ;; 0
+                  "ACG"
+                  "CCG"
+                  "GCG"
+                  "TCG"
+
+                  ;; 1
+                  "TAG"
+                  "TCG"
+                  "TGG"
+                  "TTG"
+
+                  ;; 2
+                  "TCA"
+                  "TCC"
+                  "TCG"
+                  "TCT"
+
+                  ;; 0 1
+                  "AAG"
+                  "ACG"
+                  "AGG"
+                  "ATG"
+
+                  "CAG"
+                  "CCG"
+                  "CGG"
+                  "CTG"
+
+                  "GAG"
+                  "GCG"
+                  "GGG"
+                  "GTG"
+
+                  "TAG"
+                  "TCG"
+                  "TGG"
+                  "TTG"
+
+                  ;; 0 2
+                  "ACA"
+                  "ACC"
+                  "ACG"
+                  "ACT"
+
+                  "CCA"
+                  "CCC"
+                  "CCG"
+                  "CCT"
+
+                  "GCA"
+                  "GCC"
+                  "GCG"
+                  "GCT"
+
+                  "TCA"
+                  "TCC"
+                  "TCG"
+                  "TCT"
+
+                  ;; 1 2
+                  "TAA"
+                  "TAC"
+                  "TAG"
+                  "TAT"
+
+                  "TCA"
+                  "TCC"
+                  "TCG"
+                  "TCT"
+
+                  "TGA"
+                  "TGC"
+                  "TGG"
+                  "TGT"
+
+                  "TTA"
+                  "TTC"
+                  "TTG"
+                  "TTT"
+
+                  ]
+        exp (into #{} exp-list)
+        ]
+    (is (= exp
+           (strand_stats.approx_match/build-approx-patterns-two-way 2 "CGA")))
+    )
+  )
+
