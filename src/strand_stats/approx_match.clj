@@ -148,11 +148,13 @@
         res (find-freq-approx-match-aux k d text k-mers all-approx-patterns {})]
     res))
 
+(defn iterate-over-neighbours [neighbours acc]
+  (reduce #(bia_utils.util/add-provided-k-mer %2 %1)
+          acc neighbours))
+
 (defn increase-every-neighbour [k-mer approx-patterns acc]
   (let [neighbours (get approx-patterns k-mer)
-        new-acc (reduce #(bia_utils.util/add-provided-k-mer %2 %1)
-                        acc
-                        neighbours)]
+        new-acc (iterate-over-neighbours neighbours acc)]
     new-acc))
 
 (defn find-freq-approx-match2-aux [idx len k d text approx-patterns acc]
