@@ -119,6 +119,18 @@
   [d k-mers]
   (build-all-approx-patterns-aux d k-mers {}))
 
+(defn build-all-patterns-two-way-aux [d [head & tail] acc]
+  (if (nil? head) acc
+      (let [patterns (build-approx-patterns-two-way d head)
+            new-acc (assoc acc head patterns)]
+        (recur d tail new-acc))))
+
+(defn build-all-patterns-two-way
+  "Build approximate patterns for every k-mer (and its implied reverse
+   complement) from the list"
+  [d k-mers]
+  (build-all-patterns-two-way-aux d k-mers {}))
+
 (defn find-freq-approx-match-aux [k d text [k-mer & k-mers-tail]
                                   all-approx-patterns acc]
   (if (nil? k-mer) acc
