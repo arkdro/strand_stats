@@ -1,4 +1,6 @@
 (ns strand_stats.approx_match
+  (:require clojure.set)
+  (:require bia_utils.reverse_complement)
   (:require bia_utils.util)
   (:require [clojure.math.combinatorics :as combo])
   )
@@ -32,6 +34,14 @@
         combs (calc-combinations d pattern)
         patterns (mapcat #(build-one-approx-pattern % pattern-seq) combs)]
     (into #{} patterns)))
+
+(defn build-approx-patterns-two-way
+  "Build approximate patterns for k-mer and its reverse complement"
+  [d pattern]
+  (let [forward-patterns (build-approx-patterns d pattern)
+        revc-patterns (build-approx-patterns
+                       d (bia_utils.reverse_complement/rev-complement pattern))]
+    (clojure.set/union forward-patterns revc-patterns)))
 
 (defn approx-matched [pattern patterns]
   (contains? patterns pattern))
